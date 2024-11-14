@@ -1,0 +1,1 @@
+Aqui va todo lo relacionado al backend, como conexiones a la base de datos y rutas del API.
