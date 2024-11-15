@@ -4,6 +4,7 @@ export default function CatalogLayout() {
   return (
     <Stack
       screenOptions={{
+        initialRouteName:"reserve",
         headerStyle: {
           backgroundColor: '#fff',
         },

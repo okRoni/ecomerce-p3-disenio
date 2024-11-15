@@ -1,5 +1,4 @@
-import { Link } from 'expo-router';
-import { View, Text, Button } from 'react-native';
+import { View, Text } from 'react-native';
 import LinkButton from '../../../components/LinkButton';
 
 export default function UserScreen() {

@@ -1,4 +1,3 @@
-import { Link } from 'expo-router';
 import { View, Text } from 'react-native';
 import LinkButton from '../../../components/LinkButton';
 
