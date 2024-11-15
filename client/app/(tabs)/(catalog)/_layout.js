@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-export default function HomeLayout() {
+export default function CatalogLayout() {
   return (
     <Stack
       screenOptions={{
@@ -13,7 +13,7 @@ export default function HomeLayout() {
         },
       }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="details" />
+      <Stack.Screen name="car-details" />
     </Stack>
   );
 }

@@ -6,8 +6,18 @@ export default function TabLayout() {
         screenOptions={{
             headerShown: false
         }}>
-      <Tabs.Screen name="(home)" />
-      <Tabs.Screen name="settings" />
+      <Tabs.Screen 
+        name="(catalog)" 
+        options={{ tabBarLabel: 'Catalogo' }}
+      />
+      <Tabs.Screen 
+        name="(sell)" 
+        options={{ tabBarLabel: 'Vender' }} 
+      />
+      <Tabs.Screen 
+        name="(user)" 
+        options={{ tabBarLabel: 'Usuario' }} 
+      />
     </Tabs>
   );
 }
