@@ -1,1 +1,0 @@
-Aqui va todo lo relacionado al frontend, con las interfaces graficas web y móvil
