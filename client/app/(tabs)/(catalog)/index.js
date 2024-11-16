@@ -11,7 +11,7 @@ export default function CatalogScreen() {
     image: null
   };
   return (
-    <View className="flex-1">
+    <View className="flex-1 max-w-5xl w-full self-center">
       <LinkButton href="/car-details">Detalles de auto</LinkButton>
       <CatalogItem model={car.model} year={car.year} brand={car.brand} image={car.image} price={car.price} />
     </View>
