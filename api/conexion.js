@@ -23,4 +23,5 @@ export const getConnection = async () => {
   } catch (error) {
     console.error('Error con la conexion a la base de datos:', error);
   }
+
 };

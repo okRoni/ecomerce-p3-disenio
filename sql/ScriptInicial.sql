@@ -4,6 +4,23 @@ GO
 USE AutosUsados
 GO
 
+ALTER TABLE Usuario 
+ADD password_hash VARBINARY(64);
+
+CREATE TABLE Reservacion (
+    reservacionID INT PRIMARY KEY IDENTITY(1,1),
+    cedula VARCHAR(20) NOT NULL,           
+    id_vehiculo INT NOT NULL,              
+    monto DECIMAL(18,2) NOT NULL,          
+    fecha DATE NOT NULL,                   
+    hora TIME NOT NULL,                    
+    ubicacion VARCHAR(100) NOT NULL,       
+
+    FOREIGN KEY (cedula) REFERENCES Usuario(cedula),
+    FOREIGN KEY (id_vehiculo) REFERENCES Vehiculo(id)
+);
+
+
 CREATE TABLE Usuario (
     tipo_identificacion VARCHAR(50) NOT NULL,
     cedula VARCHAR(20) PRIMARY KEY,
