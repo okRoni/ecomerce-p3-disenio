@@ -66,9 +66,9 @@ const registrar = () => {
                 selectedValue={formData.tipo_identificacion}
                 onValueChange={(value) => handleChange('tipo_identificacion', value)}
             >
-                <Picker.Item label="Cédula" value="cedula" />
-                <Picker.Item label="Pasaporte" value="pasaporte" />
-                <Picker.Item label="Licencia de Conducir" value="licencia_de_conducir" />
+                <Picker.Item label="Cédula" value="Cédula Nacional" />
+                <Picker.Item label="Pasaporte" value="Pasaporte" />
+                <Picker.Item label="Licencia de Conducir" value="Licencia de conducir" />
             </Picker>
 
             <TextInput placeholder="Numero de Identificación" onChangeText={value => handleChange('cedula', value)} />
