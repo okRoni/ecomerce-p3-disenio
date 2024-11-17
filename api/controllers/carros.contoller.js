@@ -7,6 +7,8 @@ export const getAllCarsWithFilters = async (req, res) => {
         const pool = await getConnection();
         const request = await pool.request();
 
+        console.log(req.query);
+
         request.input('tipo_vehiculo', sql.VarChar(50), req.query.tipo_vehiculo);
         request.input('marca', sql.VarChar(50), req.query.marca);
         request.input('modelo', sql.VarChar(50), req.query.modelo);

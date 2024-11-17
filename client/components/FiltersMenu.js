@@ -3,6 +3,7 @@ import { useState } from "react";
 import TextInputWithLabel from "./TextInputWithLabel";
 import BoolInputWithLabel from "./BoolInputWithLabel";
 import ComboBoxWithLabel from "./ComboBoxWithLabel";
+import NumberInputWithLabel from "./NumberInputWithLabel";
 
 export default function FiltersMenu({ onFiltersChange }) {
   const [filters, setFilters] = useState({
@@ -14,7 +15,6 @@ export default function FiltersMenu({ onFiltersChange }) {
     largo: '',
     ancho: '',
     alto: '',
-    usado: false,
     negociable: false,
     recibeOtrosVehiculos: false,
     sensoresTraseros: false,
@@ -47,14 +47,25 @@ export default function FiltersMenu({ onFiltersChange }) {
       <Text className="text-lg font-bold text-indigo-900">Filtros</Text>
       <TextInputWithLabel label="Modelo" placeholder="Modelo del auto" name="modelo" value={filters.modelo} onChange={handleChange} />
       <TextInputWithLabel label="Marca" placeholder="Marca del auto" name="marca" value={filters.marca} onChange={handleChange} />
-      <TextInputWithLabel label="Año" placeholder="Año del auto" name="año" value={filters.año} onChange={handleChange} />
-      <TextInputWithLabel label="Precio mínimo" placeholder="100.000,00" name="precioMin" value={filters.precioMin} onChange={handleChange} />
-      <TextInputWithLabel label="Precio máximo" placeholder="999.000.000,00" name="precioMax" value={filters.precioMax} onChange={handleChange} />
-      <TextInputWithLabel label="Largo" placeholder="Largo en metros" name="largo" value={filters.largo} onChange={handleChange} />
-      <TextInputWithLabel label="Ancho" placeholder="Ancho en metros" name="ancho" value={filters.ancho} onChange={handleChange} />
-      <TextInputWithLabel label="Alto" placeholder="Alto en metros" name="alto" value={filters.alto} onChange={handleChange} />
+      <NumberInputWithLabel label="Año" placeholder="Año del auto" name="año" value={filters.año} onChange={handleChange}
+        min={1900} max={new Date().getFullYear()}
+      />
+      <NumberInputWithLabel label="Precio mínimo" placeholder="100.000,00" name="precioMin" value={filters.precioMin} onChange={handleChange} 
+        min={0} max={999999999}
+      />
+      <TextInputWithLabel label="Precio máximo" placeholder="999.000.000,00" name="precioMax" value={filters.precioMax} onChange={handleChange}
+        min={0} max={999999999}
+      />
+      <NumberInputWithLabel label="Largo" placeholder="Largo en metros" name="largo" value={filters.largo} onChange={handleChange}
+        min={0} max={999}
+      />
+      <TextInputWithLabel label="Ancho" placeholder="Ancho en metros" name="ancho" value={filters.ancho} onChange={handleChange}
+        min={0} max={999}
+      />
+      <TextInputWithLabel label="Alto" placeholder="Alto en metros" name="alto" value={filters.alto} onChange={handleChange}
+        min={0} max={999}
+      />
       <View className="border-b-2 border-indigo-400 my-4"></View>
-      <BoolInputWithLabel label="Usado" name="usado" value={filters.usado} onChange={handleChange} />
       <BoolInputWithLabel label="Negociable" name="negociable" value={filters.negociable} onChange={handleChange} />
       <BoolInputWithLabel label="Recibe otros vehículos" name="recibeOtrosVehiculos" value={filters.recibeOtrosVehiculos} onChange={handleChange} />
       <BoolInputWithLabel label="Sensores de proximidad traseros" name="sensoresTraseros" value={filters.sensoresTraseros} onChange={handleChange} />
