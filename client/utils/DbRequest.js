@@ -10,6 +10,27 @@ class DbRequest {
     DbRequest.instance = this;
   }
 
+  async getAllCars() {
+    try {
+      const requestUrl = `${this.url}/cars`;
+
+      const response = await fetch(requestUrl, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json'
+        }
+      });
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      console.error
+      return null;
+    }
+  }
+
   async getAllCarsWithFilters(filters) {
     try {
       filters = this.adaptFiltersToApiFormat(filters) || {};

@@ -78,8 +78,8 @@ export default function FiltersMenu({ onFiltersChange }) {
       <BoolInputWithLabel label="Asociado a un leasing" name="leasing" value={filters.leasing} onChange={handleChange} />
       <View className="border-b-2 border-indigo-400 my-4"></View>
       <ComboBoxWithLabel label="Tablero de mando" name="tablero" value={filters.tablero} onChange={handleChange} items={[
-        { label: "Análogo", value: "análogo" },
-        { label: "Digital", value: "100% táctil" },
+        { label: "Análogo", value: "Analágo" },
+        { label: "Digital", value: "100% tactil" },
         { label: "Ambos", value: "ambos" }
       ]} />
       <ComboBoxWithLabel label="Cantidad de puertas" name="puertas" value={filters.puertas} onChange={handleChange} items={[
