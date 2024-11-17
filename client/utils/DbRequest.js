@@ -6,7 +6,7 @@ class DbRequest {
       return DbRequest.instance;
     }
 
-    this.url = 'http://localhost:3000';
+    this.url = `http://${process.env.EXPO_PUBLIC_API_IP}:3000`;
     DbRequest.instance = this;
   }
 
