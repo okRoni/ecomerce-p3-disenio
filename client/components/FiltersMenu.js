@@ -15,7 +15,7 @@ export default function FiltersMenu() {
       <TextInputWithLabel label="Largo" placeholder="Largo en metros" />
       <TextInputWithLabel label="Ancho" placeholder="Ancho en metros" />
       <TextInputWithLabel label="Alto" placeholder="Alto en metros" />
-      <View className="border-b-2 border-gray-300 my-4"></View>
+      <View className="border-b-2 border-indigo-400 my-4"></View>
       <BoolInputWithLabel label="Usado" />
       <BoolInputWithLabel label="Negociable" />
       <BoolInputWithLabel label="Recibe otros vehículos" />
@@ -27,6 +27,7 @@ export default function FiltersMenu() {
       <BoolInputWithLabel label="Vidrios eléctricos" />
       <BoolInputWithLabel label="Espejos eléctricos" />
       <BoolInputWithLabel label="Asociado a un leasing" />
+      <View className="border-b-2 border-indigo-400 my-4"></View>
       <ComboBoxWithLabel label="Tablero de mando" items={[
         { label: "Análogo", value: "análogo" },
         { label: "Digital", value: "100% táctil" },
