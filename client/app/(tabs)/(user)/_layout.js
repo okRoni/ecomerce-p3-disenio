@@ -1,9 +1,11 @@
 import { Stack } from 'expo-router';
+import { Platform } from 'react-native';
 
 export default function UserLayout() {
   return (
     <Stack
       screenOptions={{
+        headerShown: Platform.OS === 'web' ? false : true,
         headerStyle: {
           backgroundColor: '#fff',
         },

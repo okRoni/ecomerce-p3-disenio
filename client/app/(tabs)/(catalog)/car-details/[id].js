@@ -1,6 +1,6 @@
 import { View, Text, ScrollView, Image } from 'react-native';
 import LinkButton from '../../../../components/LinkButton';
-import { useLocalSearchParams } from 'expo-router';
+import { Link, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import DbRequest from '../../../../utils/DbRequest.js';
 
@@ -22,6 +22,9 @@ export default function CarDetailsScreen() {
     <ScrollView className="flex-1 max-w-5xl w-full self-center">
       {car ? (
         <View className="">
+          <Link href={`/`} className='text-lg text-indigo-500 font-semibold'>
+            ← Volver
+          </Link>
           <View className="flex rounded-lg overflow-hidden w-full h-96 justify-center items-center bg-white mb-4">
             <Image 
               source={car.fotos || require('../../../../assets/car-placeholder.jpg')} 

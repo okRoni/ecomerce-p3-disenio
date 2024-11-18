@@ -20,9 +20,7 @@ class DbRequest {
           'content-type': 'application/json'
         }
       });
-      console.log(response);
       const data = await response.json();
-      console.log(data);
 
       return data;
     } catch (error) {
@@ -42,9 +40,7 @@ class DbRequest {
           'content-type': 'application/json'
         }
       });
-      console.log(response);
       const data = await response.json();
-      console.log(data);
 
       return data;
     } catch (error) {
@@ -104,9 +100,7 @@ class DbRequest {
           'content-type': 'application/json'
         }
       });
-      console.log(response);
       const data = await response.json();
-      console.log(data);
 
       return data;
     } catch (error) {
