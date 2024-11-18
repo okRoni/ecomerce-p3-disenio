@@ -8,14 +8,14 @@ import express from 'express';
 import cors from 'cors';
 import sql from 'mssql';
 import { getConnection } from './conexion.js';
-import routes from './routes/carros.routes.js';
+import carrosRoutes from './routes/carros.routes.js';
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(routes);
+app.use(carrosRoutes);
 
 // Funcion de prueba para obtener todos los usuarios de la base de datos
 const getAllUsuarios = async () => {
