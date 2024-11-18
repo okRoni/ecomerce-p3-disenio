@@ -50,7 +50,7 @@ export default function SellFormScreen() {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch(`http://192.168.0.14:3000/api/sell`, {
+            const response = await fetch(`http://${process.env.EXPO_PUBLIC_API_IP}:3000/api/sell`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
