@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+
 class DbRequest {
   static instance = null;
 
@@ -7,7 +10,12 @@ class DbRequest {
     }
 
     this.url = `http://${process.env.EXPO_PUBLIC_API_IP}:3000`;
+    this.user = null;
     DbRequest.instance = this;
+  }
+
+  setUser(user) {
+    this.user = user;
   }
 
   async getAllCars() {
@@ -25,7 +33,7 @@ class DbRequest {
       return data;
     } catch (error) {
       console.error
-      return null;
+      return [];
     }
   }
 
@@ -45,7 +53,7 @@ class DbRequest {
       return data;
     } catch (error) {
       console.error
-      return null;
+      return [];
     }
   }
 
@@ -103,6 +111,72 @@ class DbRequest {
       const data = await response.json();
 
       return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+  async saveReservation(reservation) {
+    try {
+      this.validateUser();
+      if (!this.user) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Debe iniciar sesión para reservar un vehículo'
+        });
+        return null;
+      }
+      const formatedReservation = await this.adaptReservationToApiFormat(reservation);
+
+      const requestUrl = `${this.url}/reservations`;
+
+      const response = await fetch(requestUrl, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(formatedReservation)
+      });
+      const data = await response.json();
+      Toast.show({
+        type: 'success',
+        text1: 'Reservación exitosa',
+        text2: 'Su reservación ha sido realizada con éxito'
+      });
+      return data;
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Por favor verifique los datos ingresados'
+      });
+      console.error(error);
+      return null;
+    }
+  }
+
+  async adaptReservationToApiFormat(reservation) {
+    const adaptedReservation = {
+      cedula: this.user.cedula,
+      id_vehiculo: reservation.carId,
+      fecha: reservation.date,
+      hora: '' + reservation.hours + ':' + reservation.minutes,
+      ubicacion: reservation.lugar
+    };
+
+    return adaptedReservation;
+  }
+
+  async validateUser() {
+    try {
+      const userData = await AsyncStorage.getItem('userData');
+      if (userData) {
+        this.user = JSON.parse(userData);
+        return this.user;
+      }
+      return null;
     } catch (error) {
       console.error(error);
       return null;

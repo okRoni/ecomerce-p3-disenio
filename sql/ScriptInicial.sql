@@ -4,7 +4,10 @@ GO
 USE AutosUsados
 GO
 
+ALTER TABLE Usuario ADD password_hash VARCHAR(100);
+
 ALTER TABLE Usuario ALTER COLUMN password_hash VARCHAR(100);
+
 
 CREATE TABLE Reservacion (
     reservacionID INT PRIMARY KEY IDENTITY(1,1),

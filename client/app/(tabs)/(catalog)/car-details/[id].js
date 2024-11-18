@@ -68,7 +68,7 @@ export default function CarDetailsScreen() {
               <Text className="text-sm text-gray-500">Asociado a leasing: {car.asociado_a_leasing ? 'Sí' : 'No'}</Text>
             </View>
           </View>
-          <LinkButton href="/reserve/">Reservar</LinkButton>
+          <LinkButton href={`/reserve-car/${id}`}>Reservar</LinkButton>
         </View>
       ) : (
         <Text className="text-center text-lg">Cargando detalles del auto...</Text>
