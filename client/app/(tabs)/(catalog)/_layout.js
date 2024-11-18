@@ -1,9 +1,11 @@
 import { Stack } from 'expo-router';
+import { Platform } from 'react-native';
 
 export default function CatalogLayout() {
   return (
     <Stack
       screenOptions={{
+        headerShown: Platform.OS === 'web' ? false : true,
         initialRouteName:"reserve",
         headerStyle: {
           backgroundColor: '#fff',
@@ -14,7 +16,7 @@ export default function CatalogLayout() {
         },
       }}>
       <Stack.Screen name="index" />
-      <Stack.Screen name="car-details" />
+      <Stack.Screen name="car-details/[id]" />
     </Stack>
   );
 }
