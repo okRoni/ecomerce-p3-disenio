@@ -33,7 +33,7 @@ const registrar = () => {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch('http://192.168.0.14:3000/api/registrar', {
+            const response = await fetch('http://' + process.env.EXPO_PUBLIC_API_IP + ':3000/api/registrar', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
