@@ -33,7 +33,7 @@ export default function LoginScreen() {
         });
         
         // Navigate to the index screen
-        router.push('../index.js');  // Use router.push() to navigate to the index screen
+        router.push('./');  // Use router.push() to navigate to the index screen
       } else {
         console.error('Error iniciando sesión', data.message);
         Alert.alert('Error de inicio de sesión', data.message); // Display an alert if login fails
