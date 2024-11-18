@@ -6,7 +6,7 @@ class DbRequest {
       return DbRequest.instance;
     }
 
-    this.url = `http://${process.env.EXPO_PUBLIC_API_IP}:3000`;
+    this.url = `http://192.168.0.14:3000`;
     DbRequest.instance = this;
   }
 
@@ -108,6 +108,32 @@ class DbRequest {
       return null;
     }
   }
+
+  async registerCar(carData) {
+    try {
+      const requestUrl = `${this.url}/api/sell`;
+  
+      const response = await fetch(requestUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(carData),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Error registering vehicle');
+      }
+  
+      const result = await response.json();
+      return result;
+    } catch (error) {
+      console.error('Error en registerCar:', error);
+      return null;
+    }
+  }
+  
+
 }
 
 const instance = new DbRequest();

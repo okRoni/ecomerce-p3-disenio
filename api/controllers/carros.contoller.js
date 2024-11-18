@@ -60,3 +60,90 @@ export const getCarById = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const registrarVehiculo = async (req, res) => {
+    const {
+        tipo_vehiculo,
+        marca,
+        modelo,
+        anno,
+        placa,
+        precio_colones,
+        negociable,
+        recibe_otros_vehiculos,
+        fotos,
+        transmision_sencilla_o_4x4,
+        cantidad_puertas,
+        dimensiones_largo,
+        dimensiones_ancho,
+        dimensiones_alto,
+        material_asientos,
+        motor,
+        vidrios_electricos,
+        espejos_electricos,
+        sensores_proximidad_traseros,
+        sensores_proximidad_delanteros,
+        camara_retroceso,
+        camara_360,
+        sensores_proximidad_lateral,
+        tablero_mando,
+        transmision,
+        tapizado,
+        sistema_sonido,
+        estado_vehiculo,
+        asociado_a_leasing
+    } = req.body;
+
+    try {
+        const pool = await sql.connect(getConnection());
+
+        await pool.request()
+            .input('tipo_vehiculo', sql.VarChar(50), tipo_vehiculo)
+            .input('marca', sql.VarChar(50), marca)
+            .input('modelo', sql.VarChar(50), modelo)
+            .input('anno', sql.Int, anno)
+            .input('placa', sql.VarChar(20), placa)
+            .input('precio_colones', sql.Decimal(18, 2), precio_colones)
+            .input('negociable', sql.Bit, negociable)
+            .input('recibe_otros_vehiculos', sql.Bit, recibe_otros_vehiculos)
+            .input('fotos', sql.VarBinary(sql.MAX), fotos) // Adjust as needed
+            .input('transmision_sencilla_o_4x4', sql.VarChar(10), transmision_sencilla_o_4x4)
+            .input('cantidad_puertas', sql.Int, cantidad_puertas)
+            .input('dimensiones_largo', sql.Decimal(5, 2), dimensiones_largo)
+            .input('dimensiones_ancho', sql.Decimal(5, 2), dimensiones_ancho)
+            .input('dimensiones_alto', sql.Decimal(5, 2), dimensiones_alto)
+            .input('material_asientos', sql.VarChar(50), material_asientos)
+            .input('motor', sql.VarChar(100), motor)
+            .input('vidrios_electricos', sql.Bit, vidrios_electricos)
+            .input('espejos_electricos', sql.Bit, espejos_electricos)
+            .input('sensores_proximidad_traseros', sql.Bit, sensores_proximidad_traseros)
+            .input('sensores_proximidad_delanteros', sql.Bit, sensores_proximidad_delanteros)
+            .input('camara_retroceso', sql.Bit, camara_retroceso)
+            .input('camara_360', sql.Bit, camara_360)
+            .input('sensores_proximidad_lateral', sql.Bit, sensores_proximidad_lateral)
+            .input('tablero_mando', sql.VarChar(100), tablero_mando)
+            .input('transmision', sql.VarChar(50), transmision)
+            .input('tapizado', sql.VarChar(50), tapizado)
+            .input('sistema_sonido', sql.VarChar(100), sistema_sonido)
+            .input('estado_vehiculo', sql.VarChar(50), estado_vehiculo)
+            .input('asociado_a_leasing', sql.Bit, asociado_a_leasing)
+            .query(`
+                INSERT INTO Vehiculo (tipo_vehiculo, marca, modelo, anno, placa, precio_colones, negociable, recibe_otros_vehiculos, fotos, 
+                                      transmision_sencilla_o_4x4, cantidad_puertas, dimensiones_largo, dimensiones_ancho, dimensiones_alto, 
+                                      material_asientos, motor, vidrios_electricos, espejos_electricos, sensores_proximidad_traseros, 
+                                      sensores_proximidad_delanteros, camara_retroceso, camara_360, sensores_proximidad_lateral, 
+                                      tablero_mando, transmision, tapizado, sistema_sonido, estado_vehiculo, asociado_a_leasing)
+                VALUES (@tipo_vehiculo, @marca, @modelo, @anno, @placa, @precio_colones, @negociable, @recibe_otros_vehiculos, @fotos, 
+                        @transmision_sencilla_o_4x4, @cantidad_puertas, @dimensiones_largo, @dimensiones_ancho, @dimensiones_alto, 
+                        @material_asientos, @motor, @vidrios_electricos, @espejos_electricos, @sensores_proximidad_traseros, 
+                        @sensores_proximidad_delanteros, @camara_retroceso, @camara_360, @sensores_proximidad_lateral, 
+                        @tablero_mando, @transmision, @tapizado, @sistema_sonido, @estado_vehiculo, @asociado_a_leasing)
+            `);
+
+        res.status(201).send('Vehículo registrado correctamente');
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Error registrando el vehículo');
+    }
+};
+
