@@ -50,6 +50,10 @@ export default function ReserveCarScreen() {
     getCar();
   }, [id]);
 
+  const handleDropdown = (name, value) => {
+    setLugar(value);
+  };
+
   return (
     <ScrollView className="flex-1 max-w-5xl w-full self-center">
       {car ? (
@@ -112,7 +116,7 @@ export default function ReserveCarScreen() {
           />
           <ComboBoxWithLabel label="Lugar" 
             value={lugar}
-            onChange={setLugar}
+            onChange={handleDropdown}
             items={[
               { label: 'San José', value: 'San José' },
               { label: 'Alajuela', value: 'Alajuela' },
@@ -124,6 +128,7 @@ export default function ReserveCarScreen() {
         <View className="flex-1 justify-center items-center">
           <TouchableOpacity className="p-4 bg-indigo-800 rounded-2xl w-32 justify-center items-center"
             onPress={() => {
+              console.log('Reservar', car.id, date, hours, minutes, lugar);
               DbRequest.saveReservation({
                 carId: car.id,
                 date,

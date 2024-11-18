@@ -162,7 +162,7 @@ CREATE OR ALTER PROCEDURE sp_insert_reserva (
 )
 AS
 BEGIN TRY
-  INSERT INTO Reserva (id_vehiculo, cedula, monto, fecha, hora, ubicacion)
+  INSERT INTO Reservacion (id_vehiculo, cedula, monto, fecha, hora, ubicacion)
   VALUES (@id_vehiculo, @cedula, 2000, @fecha, @hora, @ubicacion);
 
   SELECT SCOPE_IDENTITY() AS id_reserva;
@@ -174,3 +174,5 @@ BEGIN CATCH
   THROW;
 END CATCH;
 GO
+
+SELECT * FROM Reservacion;

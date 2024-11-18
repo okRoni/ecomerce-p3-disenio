@@ -66,10 +66,12 @@ export const saveReservation = async (req, res) => {
         const pool = await getConnection();
         const request = await pool.request();
 
+        console.log(req.body);
+
         request.input('id_vehiculo', sql.Int, req.body.id_vehiculo);
         request.input('cedula', sql.VarChar(20), req.body.cedula);
         request.input('fecha', sql.Date, req.body.fecha);
-        request.input('hora', sql.Time, req.body.hora);
+        request.input('hora', req.body.hora);
         request.input('ubicacion', sql.VarChar(100), req.body.ubicacion);
 
         const result = await request.execute('sp_insert_reserva');

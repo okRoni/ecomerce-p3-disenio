@@ -119,7 +119,7 @@ class DbRequest {
 
   async saveReservation(reservation) {
     try {
-      this.validateUser();
+      await this.validateUser();
       if (!this.user) {
         Toast.show({
           type: 'error',
@@ -140,10 +140,18 @@ class DbRequest {
         body: JSON.stringify(formatedReservation)
       });
       const data = await response.json();
+      if (response.status === 500) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: data.message || 'Ha ocurrido un error al guardar la reservación'
+        });
+        return null;
+      }
       Toast.show({
         type: 'success',
         text1: 'Reservación exitosa',
-        text2: 'Su reservación ha sido realizada con éxito'
+        text2: 'Su reservación ha sido guardada exitosamente'
       });
       return data;
     } catch (error) {
@@ -162,7 +170,7 @@ class DbRequest {
       cedula: this.user.cedula,
       id_vehiculo: reservation.carId,
       fecha: reservation.date,
-      hora: '' + reservation.hours + ':' + reservation.minutes,
+      hora: (reservation.hours < 10 ? '0' : '') + reservation.hours + ':' + reservation.minutes + ':00',
       ubicacion: reservation.lugar
     };
 
@@ -185,6 +193,5 @@ class DbRequest {
 }
 
 const instance = new DbRequest();
-Object.freeze(instance);
 
 export default instance;
