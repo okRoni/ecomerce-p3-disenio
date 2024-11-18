@@ -9,6 +9,9 @@ dist/
 web-build/
 expo-env.d.ts
 
+# my little env
+.env
+
 # Native
 *.orig.*
 *.jks

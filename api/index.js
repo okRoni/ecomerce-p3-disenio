@@ -8,14 +8,16 @@ import express from 'express';
 import cors from 'cors';
 import sql from 'mssql';
 import { getConnection } from './conexion.js';
-import routes from './routes/usuarios.routes.js';
+import carrosRoutes from './routes/carros.routes.js';
+import usuariosRoutes from './routes/usuarios.routes.js';
 
 const app = express();
 const port = 3000;
 
 app.use(cors());
 app.use(express.json());
-app.use(routes);
+app.use(carrosRoutes);
+app.use(usuariosRoutes);
 
 // Test the database connection
 getConnection().then(pool => {
@@ -26,6 +28,6 @@ getConnection().then(pool => {
   }
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', () => {
     console.log(`Servidor corriendo en http://localhost:${port}`);
 });
