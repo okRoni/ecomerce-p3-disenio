@@ -152,3 +152,27 @@ BEGIN CATCH
   THROW;
 END CATCH;
 GO
+
+CREATE OR ALTER PROCEDURE sp_insert_reserva (
+  @id_vehiculo INT,
+  @cedula VARCHAR(20),
+  @fecha DATE,
+  @hora TIME,
+  @ubicacion VARCHAR(100)
+)
+AS
+BEGIN TRY
+  INSERT INTO Reservacion (id_vehiculo, cedula, monto, fecha, hora, ubicacion)
+  VALUES (@id_vehiculo, @cedula, 2000, @fecha, @hora, @ubicacion);
+
+  SELECT SCOPE_IDENTITY() AS id_reserva;
+END TRY
+BEGIN CATCH
+  IF @@TRANCOUNT > 0
+    ROLLBACK TRANSACTION;
+
+  THROW;
+END CATCH;
+GO
+
+SELECT * FROM Reservacion;

@@ -145,5 +145,26 @@ export const registrarVehiculo = async (req, res) => {
         console.error(error);
         res.status(500).send('Error registrando el vehículo');
     }
-};
+}
 
+export const saveReservation = async (req, res) => {
+    try {
+        const pool = await getConnection();
+        const request = await pool.request();
+
+        console.log(req.body);
+
+        request.input('id_vehiculo', sql.Int, req.body.id_vehiculo);
+        request.input('cedula', sql.VarChar(20), req.body.cedula);
+        request.input('fecha', sql.Date, req.body.fecha);
+        request.input('hora', req.body.hora);
+        request.input('ubicacion', sql.VarChar(100), req.body.ubicacion);
+
+        const result = await request.execute('sp_insert_reserva');
+
+        return res.json(result.recordset[0]);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }        
+
+}

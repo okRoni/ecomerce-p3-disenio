@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getAllCarsWithFilters, getCarById, registrarVehiculo } from '../controllers/carros.contoller.js';
+import { getAllCarsWithFilters, getCarById, saveReservation, registrarVehiculo } from '../controllers/carros.contoller.js';
 
 
 const routes = Router();
@@ -8,6 +8,8 @@ const routes = Router();
 routes.get('/cars', getAllCarsWithFilters);
 
 routes.get('/cars/:id', getCarById);
+
+routes.post('/reservations', saveReservation);
 
 routes.post('/api/sell', registrarVehiculo)
 

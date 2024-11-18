@@ -1,3 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Toast from 'react-native-toast-message';
+
 class DbRequest {
   static instance = null;
 
@@ -6,8 +9,13 @@ class DbRequest {
       return DbRequest.instance;
     }
 
-    this.url = `http://192.168.0.14:3000`;
+    this.url = `http://${process.env.EXPO_PUBLIC_API_IP}:3000`;
+    this.user = null;
     DbRequest.instance = this;
+  }
+
+  setUser(user) {
+    this.user = user;
   }
 
   async getAllCars() {
@@ -25,7 +33,7 @@ class DbRequest {
       return data;
     } catch (error) {
       console.error
-      return null;
+      return [];
     }
   }
 
@@ -45,7 +53,7 @@ class DbRequest {
       return data;
     } catch (error) {
       console.error
-      return null;
+      return [];
     }
   }
 
@@ -109,6 +117,80 @@ class DbRequest {
     }
   }
 
+  async saveReservation(reservation) {
+    try {
+      await this.validateUser();
+      if (!this.user) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'Debe iniciar sesión para reservar un vehículo'
+        });
+        return null;
+      }
+      const formatedReservation = await this.adaptReservationToApiFormat(reservation);
+
+      const requestUrl = `${this.url}/reservations`;
+
+      const response = await fetch(requestUrl, {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json'
+        },
+        body: JSON.stringify(formatedReservation)
+      });
+      const data = await response.json();
+      if (response.status === 500) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: data.message || 'Ha ocurrido un error al guardar la reservación'
+        });
+        return null;
+      }
+      Toast.show({
+        type: 'success',
+        text1: 'Reservación exitosa',
+        text2: 'Su reservación ha sido guardada exitosamente'
+      });
+      return data;
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'Por favor verifique los datos ingresados'
+      });
+      console.error(error);
+      return null;
+    }
+  }
+
+  async adaptReservationToApiFormat(reservation) {
+    const adaptedReservation = {
+      cedula: this.user.cedula,
+      id_vehiculo: reservation.carId,
+      fecha: reservation.date,
+      hora: (reservation.hours < 10 ? '0' : '') + reservation.hours + ':' + reservation.minutes + ':00',
+      ubicacion: reservation.lugar
+    };
+
+    return adaptedReservation;
+  }
+
+  async validateUser() {
+    try {
+      const userData = await AsyncStorage.getItem('userData');
+      if (userData) {
+        this.user = JSON.parse(userData);
+        return this.user;
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
   async registerCar(carData) {
     try {
       const requestUrl = `${this.url}/api/sell`;
@@ -137,6 +219,5 @@ class DbRequest {
 }
 
 const instance = new DbRequest();
-Object.freeze(instance);
 
 export default instance;
