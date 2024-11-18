@@ -45,3 +45,18 @@ export const getAllCarsWithFilters = async (req, res) => {
         return res.status(500).json({ message: error.message });
     }
 }
+
+export const getCarById = async (req, res) => {
+    try {
+        const pool = await getConnection();
+        const request = await pool.request();
+
+        request.input('id', sql.Int, req.params.id);
+
+        const result = await request.execute('sp_get_vehiculo_by_id');
+
+        return res.json(result.recordset[0]);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}

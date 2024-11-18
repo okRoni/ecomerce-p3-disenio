@@ -11,6 +11,7 @@ export default function CatalogItemList({ items }) {
         items.map((item, index) => (
         <CatalogItem 
           key={index} 
+          id={item.id}
           model={item.modelo} 
           year={item.anno} 
           brand={item.marca} 

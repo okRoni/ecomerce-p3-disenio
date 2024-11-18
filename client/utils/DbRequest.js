@@ -94,6 +94,26 @@ class DbRequest {
     return adaptedFilters;
   }
 
+  async getCarById(id) {
+    try {
+      const requestUrl = `${this.url}/cars/${id}`;
+
+      const response = await fetch(requestUrl, {
+        method: 'GET',
+        headers: {
+          'content-type': 'application/json'
+        }
+      });
+      console.log(response);
+      const data = await response.json();
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
 }
 
 const instance = new DbRequest();

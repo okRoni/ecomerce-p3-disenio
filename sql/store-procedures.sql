@@ -105,3 +105,50 @@ BEGIN CATCH
 END CATCH;
 GO
 
+CREATE OR ALTER PROCEDURE sp_get_vehiculo_by_id (
+  @id INT
+)
+AS
+BEGIN TRY
+  SELECT 
+    id,
+    tipo_vehiculo,
+    marca,
+    modelo,
+    anno,
+    placa,
+    precio_colones,
+    negociable,
+    recibe_otros_vehiculos,
+    fotos,
+    transmision_sencilla_o_4x4,
+    cantidad_puertas,
+    dimensiones_largo,
+    dimensiones_ancho,
+    dimensiones_alto,
+    material_asientos,
+    motor,
+    vidrios_electricos,
+    espejos_electricos,
+    sensores_proximidad_traseros,
+    sensores_proximidad_delanteros,
+    camara_retroceso,
+    camara_360,
+    sensores_proximidad_lateral,
+    tablero_mando,
+    transmision,
+    tapizado,
+    sistema_sonido,
+    estado_vehiculo,
+    asociado_a_leasing
+  FROM Vehiculo
+  WHERE id = @id;
+
+END TRY
+BEGIN CATCH
+  IF @@TRANCOUNT > 0
+    ROLLBACK TRANSACTION;
+
+  THROW;
+END CATCH;
+GO
