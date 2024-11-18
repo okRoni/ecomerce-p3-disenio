@@ -53,16 +53,16 @@ export default function FiltersMenu({ onFiltersChange }) {
       <NumberInputWithLabel label="Precio mínimo" placeholder="100.000,00" name="precioMin" value={filters.precioMin} onChange={handleChange} 
         min={0} max={999999999}
       />
-      <TextInputWithLabel label="Precio máximo" placeholder="999.000.000,00" name="precioMax" value={filters.precioMax} onChange={handleChange}
+      <NumberInputWithLabel label="Precio máximo" placeholder="999.000.000,00" name="precioMax" value={filters.precioMax} onChange={handleChange}
         min={0} max={999999999}
       />
       <NumberInputWithLabel label="Largo" placeholder="Largo en metros" name="largo" value={filters.largo} onChange={handleChange}
         min={0} max={999}
       />
-      <TextInputWithLabel label="Ancho" placeholder="Ancho en metros" name="ancho" value={filters.ancho} onChange={handleChange}
+      <NumberInputWithLabel label="Ancho" placeholder="Ancho en metros" name="ancho" value={filters.ancho} onChange={handleChange}
         min={0} max={999}
       />
-      <TextInputWithLabel label="Alto" placeholder="Alto en metros" name="alto" value={filters.alto} onChange={handleChange}
+      <NumberInputWithLabel label="Alto" placeholder="Alto en metros" name="alto" value={filters.alto} onChange={handleChange}
         min={0} max={999}
       />
       <View className="border-b-2 border-indigo-400 my-4"></View>
