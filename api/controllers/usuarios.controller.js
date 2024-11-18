@@ -36,3 +36,44 @@ export const registrarUsuario = async (req, res) => {
         res.status(500).send('Error registrando al usuario');
     }
 };
+
+export const loginUsuario = async (req, res) => {
+    const { correo_electronico, password } = req.body;
+
+    try {
+        // Conexion con la base de datos
+        const pool = await sql.connect(getConnection());
+
+        // Query para encontrar al usuario por email
+        const result = await pool.request()
+            .input('correo_electronico', sql.VarChar(100), correo_electronico)
+            .query(`SELECT * FROM Usuario WHERE correo_electronico = @correo_electronico`);
+
+        if (result.recordset.length === 0) {
+            // Usuario no encontrado
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Extraer datos de usuario
+        const user = result.recordset[0];
+        const storedHash = user.password_hash;
+
+        // Comparar contrasenna usando bcrypt
+        const isPasswordValid = await bcrypt.compare(password, storedHash);
+
+        if (isPasswordValid) {
+            // Exclude password hash from user data in the response
+            const { password_hash, ...userData } = user;
+            res.status(200).json({
+                message: 'Inicio de sesión exitoso',
+                user: userData,  // Send user data (excluding password)
+            });
+            // Optionalmente, generar un token aqui si se esta usando JWT para el manejo de sesion
+        } else {
+            res.status(401).json({ message: 'Contraseña incorrecta' });
+        }
+    } catch (error) {
+        console.error('Error durante login:', error);
+        res.status(500).json({ message: 'Error en el inicio de sesión' });
+    }
+};
