@@ -1,39 +1,11 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Alert, Text, StyleSheet, Switch, ScrollView } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { VehiclePrototype } from './VehiclePrototype'; // Import the prototype
 
 export default function SellFormScreen() {
-    const [formData, setFormData] = useState({
-        tipo_vehiculo: '',
-        marca: '',
-        modelo: '',
-        anno: '',
-        placa: '',
-        precio_colones: '',
-        negociable: false,
-        recibe_otros_vehiculos: false,
-        transmision_sencilla_o_4x4: '',
-        cantidad_puertas: '',
-        dimensiones_largo: '',
-        dimensiones_ancho: '',
-        dimensiones_alto: '',
-        material_asientos: '',
-        motor: '',
-        vidrios_electricos: false,
-        espejos_electricos: false,
-        sensores_proximidad_traseros: false,
-        sensores_proximidad_delanteros: false,
-        camara_retroceso: false,
-        camara_360: false,
-        sensores_proximidad_lateral: false,
-        tablero_mando: '',
-        transmision: '',
-        tapizado: '',
-        sistema_sonido: '',
-        estado_vehiculo: '',
-        asociado_a_leasing: false,
-    });
-
+    // Clone the prototype to initialize form data
+    const [formData, setFormData] = useState({ ...VehiclePrototype });
     const [focusedField, setFocusedField] = useState(null);
 
     const handleChange = (name, value) => {
@@ -50,7 +22,7 @@ export default function SellFormScreen() {
 
     const handleSubmit = async () => {
         try {
-            const response = await fetch(`http://${process.env.EXPO_PUBLIC_API_IP}:3000/api/sell`, {
+            const response = await fetch(`http://192.168.0.14:3000/api/sell`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -60,6 +32,7 @@ export default function SellFormScreen() {
 
             if (response.ok) {
                 Alert.alert('Éxito', 'Vehículo registrado correctamente');
+                setFormData({ ...VehiclePrototype }); // Reset form data after submission
             } else {
                 Alert.alert('Error', 'Error al registrar el vehículo');
             }
