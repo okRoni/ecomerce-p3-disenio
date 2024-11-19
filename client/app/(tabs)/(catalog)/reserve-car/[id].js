@@ -85,7 +85,7 @@ export default function ReserveCarScreen() {
                 Fecha: {date ? date.toDateString() : 'No seleccionada'}
               </Text>
               <TouchableOpacity onPress={() => setDatePickerOpen(true)}
-                className="mr-4 bg-indigo-900 p-2 rounded-lg">
+                className="mr-4 bg-blue-600 p-2 rounded-lg">
                 <Text className="text-md text-white text-center">Seleccionar Fecha</Text>
               </TouchableOpacity>
             </View>
@@ -94,7 +94,7 @@ export default function ReserveCarScreen() {
                 Hora: {hours ? `${hours}:${minutes}` : 'No seleccionada'}
               </Text>
               <TouchableOpacity onPress={() => setTimePickerVisible(true)}
-                className="bg-indigo-900 p-2 rounded-lg">
+                className="bg-blue-600 p-2 rounded-lg">
                 <Text className="text-md text-white text-center">Seleccionar Hora</Text>
               </TouchableOpacity>
             </View>
@@ -126,7 +126,7 @@ export default function ReserveCarScreen() {
           />
         </View>
         <View className="flex-1 justify-center items-center">
-          <TouchableOpacity className="p-4 bg-indigo-800 rounded-2xl w-32 justify-center items-center"
+          <TouchableOpacity className="p-4 bg-blue-600 rounded-2xl w-32 justify-center items-center"
             onPress={() => {
               console.log('Reservar', car.id, date, hours, minutes, lugar);
               DbRequest.saveReservation({

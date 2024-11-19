@@ -52,6 +52,7 @@ export default function IndexScreen() {
         <View style={styles.noDataContainer}>
           <Text style={styles.noDataText}>Porfavor inicie sesión o registrese si no tiene cuenta.</Text>
           <Button title="Iniciar Sesión" onPress={() => router.push('/login')} />
+          <View style={{ marginVertical: 10 }} />
           <Button title="Registrarse" onPress={() => router.push('/register')} />
         </View>
       )}
