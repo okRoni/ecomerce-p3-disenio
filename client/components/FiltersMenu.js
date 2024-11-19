@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Button } from "react-native";
 import { useState } from "react";
 import TextInputWithLabel from "./TextInputWithLabel";
 import BoolInputWithLabel from "./BoolInputWithLabel";
@@ -6,7 +6,7 @@ import ComboBoxWithLabel from "./ComboBoxWithLabel";
 import NumberInputWithLabel from "./NumberInputWithLabel";
 
 export default function FiltersMenu({ onFiltersChange }) {
-  const [filters, setFilters] = useState({
+  const initialFilters = {
     modelo: '',
     marca: '',
     año: '',
@@ -34,7 +34,9 @@ export default function FiltersMenu({ onFiltersChange }) {
     sonido: '',
     estado: '',
     transmisionTipo: ''
-  });
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
 
   const handleChange = (name, value) => {
     const newFilters = { ...filters, [name]: value };
@@ -42,9 +44,21 @@ export default function FiltersMenu({ onFiltersChange }) {
     onFiltersChange(newFilters);
   };
 
+  const handleClearFilters = () => {
+    setFilters(initialFilters);
+    onFiltersChange(initialFilters);
+  };
+
   return (
     <View className="flex flex-col bg-white rounded-lg p-4">
-      <Text className="text-lg font-bold text-indigo-900">Filtros</Text>
+      <View className="flex flex-row justify-between items-center">
+        <Text className="text-lg font-bold text-indigo-900">Filtros</Text>
+        <TouchableOpacity
+          className="bg-blue-600 text-white rounded-lg p-2"
+          onPress={handleClearFilters}>
+            <Text className="text-white">Limpiar filtros</Text>
+        </TouchableOpacity>
+      </View>
       <TextInputWithLabel label="Modelo" placeholder="Modelo del auto" name="modelo" value={filters.modelo} onChange={handleChange} />
       <TextInputWithLabel label="Marca" placeholder="Marca del auto" name="marca" value={filters.marca} onChange={handleChange} />
       <NumberInputWithLabel label="Año" placeholder="Año del auto" name="año" value={filters.año} onChange={handleChange}
