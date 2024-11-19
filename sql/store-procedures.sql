@@ -68,8 +68,8 @@ BEGIN TRY
   FROM Vehiculo
   WHERE
     (@tipo_vehiculo IS NULL OR tipo_vehiculo = @tipo_vehiculo) AND
-    (@marca IS NULL OR marca = @marca) AND
-    (@modelo IS NULL OR modelo = @modelo) AND
+    (@marca IS NULL OR marca like '%' + @marca + '%') AND
+    (@modelo IS NULL OR modelo like '%' + @modelo + '%') AND
     (@anno IS NULL OR anno = @anno) AND
     (@precio_min IS NULL OR precio_colones >= @precio_min) AND
     (@precio_max IS NULL OR precio_colones <= @precio_max) AND
